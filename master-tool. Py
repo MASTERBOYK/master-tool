@@ -1,0 +1,69 @@
+#!/usr/bin/env python3
+import os
+import sys
+import time
+from colorama import init, Fore, Back, Style
+
+init(autoreset=True)
+
+def slow_print(text, delay=0.03):
+    for char in text:
+        print(char, end='', flush=True)
+        time.sleep(delay)
+    print()
+
+def welcome_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+    red = Fore.RED + Style.BRIGHT
+    green = Fore.GREEN + Style.BRIGHT
+    black_bg = Back.BLACK
+    
+    print(black_bg + red + "\n" + "="*50)
+    print(black_bg + red + "     ███╗   ███╗ █████╗ ███████╗███████╗██████╗ ")
+    print(black_bg + red + "     ████╗ ████║██╔══██╗██╔════╝██╔════╝██╔══██╗")
+    print(black_bg + green + "     ██╔████╔██║███████║███████╗█████╗  ██████╔╝")
+    print(black_bg + green + "     ██║╚██╔╝██║██╔══██║╚════██║██╔══╝  ██╔══██╗")
+    print(black_bg + red + "     ██║ ╚═╝ ██║██║  ██║███████║███████╗██║  ██║")
+    print(black_bg + red + "     ╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝")
+    print(black_bg + Fore.WHITE + "                 WELCOME TO MASTER TOOL\n")
+    print(black_bg + red + "="*50 + "\n")
+
+def help_menu():
+    print(Fore.GREEN + "Available commands:")
+    print(Fore.CYAN + "  help     " + Fore.WHITE + "Show this help menu")
+    print(Fore.CYAN + "  clear    " + Fore.WHITE + "Clear the screen")
+    print(Fore.CYAN + "  exit     " + Fore.WHITE + "Exit the tool")
+    print(Fore.CYAN + "  about    " + Fore.WHITE + "Show info about this tool")
+    # You can add more commands here
+
+def about():
+    print(Fore.YELLOW + "MASTER TOOL v1.0")
+    print("Created by Abdullah Master")
+    print("This is a Termux-style CLI tool with custom commands.\n")
+
+def main():
+    welcome_screen()
+    while True:
+        try:
+            command = input(Fore.GREEN + "master-tool> " + Fore.WHITE).strip().lower()
+            if command == "help":
+                help_menu()
+            elif command == "clear":
+                os.system('cls' if os.name == 'nt' else 'clear')
+            elif command == "exit":
+                print(Fore.RED + "Exiting... Goodbye!")
+                break
+            elif command == "about":
+                about()
+            elif command == "":
+                continue
+            else:
+                print(Fore.RED + f"Command not found: {command}. Type 'help' for commands.")
+        except KeyboardInterrupt:
+            print("\n" + Fore.RED + "Interrupted! Type 'exit' to quit.")
+        except EOFError:
+            print("\n" + Fore.RED + "EOF detected! Exiting...")
+            break
+
+if __name__ == "__main__":
+    main()
